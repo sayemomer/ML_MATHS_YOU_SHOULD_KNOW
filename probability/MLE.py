@@ -16,7 +16,7 @@ d_log_L_mu = diff(log_L, mu)
 # Take the derivative of the log likelihood function with respect to sigma
 d_log_L_sigma = diff(log_L, sigma)
 
-# Set the derivatives equal to 0 and solve for mu and sigma
+# Set the derivatives equal to 0 and solve for mu and 333sigma
 mu_hat, sigma_hat = solve([Eq(d_log_L_mu, 0), Eq(d_log_L_sigma, 0)], (mu, sigma))
 
 # Print the maximum likelihood estimates

@@ -12,7 +12,7 @@ tol = 0.01
 eta = 0.003
 
 # Get X1,X2
-data=loadmat('data.mat')
+data=loadmat('/Users/sayems_mac/ml6321/logistic/data.mat')
 X1,X2=data['X1'],data['X2']
 
 # Data matrix with column of ones at end.
