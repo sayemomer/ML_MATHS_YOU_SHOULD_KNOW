@@ -5,7 +5,7 @@ from utils import *
 import time
 
 # Maximum number of iterations. Continue until this limit, or when erro change is below tol.
-max_iter = 500
+max_iter = 1000
 tol = 0.01
 
 # Step size for gradient descent
@@ -38,12 +38,47 @@ plt.xlabel('slope')
 plt.ylabel('intercept')
 plt.axis([-5, 5, -10, 0])
 
+λ = [0.1, 1, 10, 100]
+
+# negative log-likelihood
+
+# step size 0.003
+#for λ, 0.1 = 58.9790
+#         1 = 150.0921
+#       10 = 1047.3273
+#       100 = 10172.5345
+
+# step size 0.001
+#for λ, 0.1 = 62.8079
+#       1 = 81.7519
+#       10 = 108.8628
+#       100 = 2438.6068
+
+# for iterations 600
+#for step size 0.001
+#for λ, 0.1 = 60.9000
+
+# for iterations 1000
+#it stops at 741 iterations
+#for step size 0.001
+#for λ , 0.1 = 59.0988
+#norm of w: 5.95862094204972
+
+
+
+
 for iter in range(max_iter):
+
+    # Shuffle the data at the beginning of each epoch
+    indices = np.arange(X.shape[0])
+    np.random.shuffle(indices)
+    X = X[indices]
+    t = t[indices]
     # Compute output using current w on all data X.
     y = sigmoid(w.T @ X.T).T
 
     # e is the rror, negative log-likelihood
-    e = -np.sum(t * np.log(y) + (1-t) * np.log(1-y))
+    e = -np.sum(t * np.log(y) + (1-t) * np.log(1-y)) + λ[0] * np.sum(w**2)
 
     # Add this error to the end of error vector
     e_all = np.append(e_all, e)
@@ -76,6 +111,8 @@ for iter in range(max_iter):
 
     # Print some information
     print('iter %d, negative log-likelihood %.4f, w=%s' % (iter,e,np.array2string(w.T)))
+    #print norm of w
+    print('norm of w:',np.linalg.norm(w))
 
     # Stop iterating if error does not change more than tol
     if iter > 0:

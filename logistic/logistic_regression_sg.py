@@ -9,7 +9,7 @@ max_iter = 500
 tol = 0.01
 
 # Step size for gradient descent
-eta = 0.001
+eta = 0.003
 
 # Get X1,X2
 data=loadmat('/Users/sayems_mac/ml6321/logistic/data.mat')
@@ -38,7 +38,15 @@ plt.xlabel('slope')
 plt.ylabel('intercept')
 plt.axis([-5, 5, -10, 0])
 
+
+
 for iter in range(max_iter):
+
+    # Shuffle the data at the beginning of each epoch
+    indices = np.arange(X.shape[0])
+    np.random.shuffle(indices)
+    X = X[indices]
+    t = t[indices]
     # Compute output using current w on all data X.
     y = sigmoid(w.T @ X.T).T
 

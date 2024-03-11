@@ -29,7 +29,7 @@ class LinearRegression_Gradient_Descent:
     
     def gradient(self,X,Y):
         N = len(X)
-        for i in range(N):
+        for i in range(self.iterations):
             # Predicted values
             Y_pred = self.w * X + self.b
             
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     w = 0
     b = 0
     eta = 0.01
-    iterations = 10000
+    iterations = 10
     N = len(X)
     # Closed form solution
     X = np.c_[np.ones(len(X)), X]
