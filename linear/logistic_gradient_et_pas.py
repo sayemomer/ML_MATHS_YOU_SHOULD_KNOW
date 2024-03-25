@@ -46,6 +46,27 @@ class LinearRegression_Gradient_Descent:
             
             # print(f"Iteration {i+1}: w = {self.w}, b = {self.b}, Cost = {cost}")
         return self.w
+    def stochastic_gradient(self,X,Y):
+        N = len(X)
+        for i in range(self.iterations):
+            for j in range(N):
+                # Predicted values
+                Y_pred = self.w * X[j] + self.b
+                
+                # Gradient of the cost function w.r.t w and b
+                dw = (-2/N) * X[j] * (Y[j] - Y_pred)
+                db = (-2/N) * (Y[j] - Y_pred)
+                
+                # Update parameters
+                self.w -= self.eta * dw
+                self.b -= self.eta * db
+                
+                # Compute cost
+                cost = (1/N) * sum((Y - Y_pred)**2)
+                
+                # print(f"Iteration {i+1}: w = {self.w}, b = {self.b}, Cost = {cost}")
+        return self.w
+    
     def predict(self,X):
         return X * self.w + self.b
 

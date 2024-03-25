@@ -42,26 +42,25 @@ plt.axis([-5, 5, -10, 0])
 
 for iter in range(max_iter):
 
-    # Shuffle the data at the beginning of each epoch
-    indices = np.arange(X.shape[0])
-    np.random.shuffle(indices)
-    X = X[indices]
-    t = t[indices]
-    # Compute output using current w on all data X.
-    y = sigmoid(w.T @ X.T).T
+    #Iterate the data over j
 
-    # e is the rror, negative log-likelihood
-    e = -np.sum(t * np.log(y) + (1-t) * np.log(1-y))
+    for j in range(X.shape[0]):
+        
+        # Compute output using current w on all data X.
+        y = sigmoid(w.T @ X[j].T).T
 
-    # Add this error to the end of error vector
-    e_all = np.append(e_all, e)
+        # e is the rror, negative log-likelihood
+        e = -np.sum(t[j] * np.log(y) + (1-t[j]) * np.log(1-y))
 
-    # Gradient of the error, using Eqn 4.91
-    grad_e = np.sum((y-t)*X, 0, keepdims=True) # 1-by-3
-          
-    # Update w, *subtracking* a step in the error derivative since we are minimizing
-    w_old = w
-    w = w - eta*grad_e.T
+        # Add this error to the end of error vector
+        e_all = np.append(e_all, e)
+
+        # Gradient of the error, using Eqn 4.91
+        grad_e = np.sum((y-t[j])*X[j], 0, keepdims=True) # 1-by-3
+            
+        # Update w, *subtracking* a step in the error derivative since we are minimizing
+        w_old = w
+        w = w - eta*grad_e.T
 
     if 1:
         # Plot current separator and data
